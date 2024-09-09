@@ -1,3 +1,6 @@
+# front-pet-project
+The Pet Adoption Program aims to improve the lives of animals and people by facilitating meaningful connections between them. With an efficient and supportive process, we are committed to ensuring loving homes for every pet, positively impacting countless families and animals.
+
 # React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
