@@ -1,4 +1,4 @@
-import Logo from "../../Assets/Logos/Logo.png";
+
 import LogoNombre from "../../Assets/Logos/LogoNombre.png";
 import { Link, useNavigate } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
@@ -49,7 +49,7 @@ function Header() {
                                     <Link
                                         type='button'
                                         to='/Catalogue'
-                                        className='text-white bg-[#F6A192] hidden md:block w-[160px] font-medium rounded-lg text-sm px-3 py-1.5 text-center hover:bg-[#F6A170]'>
+                                        className='text-white bg-bgGreen hidden md:block w-[160px] font-medium rounded-lg text-sm px-3 py-1.5 text-center hover:bg-[#89ac76]'>
                                         ¡Adoptar ahora!
                                     </Link>
                                 </li>
@@ -62,7 +62,7 @@ function Header() {
                                 </li>
                                 <li>
                                     <a
-                                        href='/#Testimonials'
+                                        href='/#Sponsors'
                                         className='block py-1 px-2 text-black rounded md:p-0 md:dark:hover:underline'>
                                         Sponsors
                                     </a>
@@ -80,7 +80,7 @@ function Header() {
                                         navigate(!token ? "/Log-In" : "/Match")
                                     }
                                     type='button'
-                                    className='text-white bg-[#6B8698] hidden md:block w-[140px] font-medium rounded-lg text-sm px-3 py-1.5 text-center hover:bg-[#D8A373]'>
+                                    className='text-white bg-bgGreen hidden md:block w-[140px] font-medium rounded-lg text-sm px-3 py-1.5 text-center hover:bg-[#89ac76]'>
                                     Para fundaciones
                                 </button>
                             )}

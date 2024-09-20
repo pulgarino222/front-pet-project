@@ -1,5 +1,5 @@
 :root {
-  --main-color: #6B8698;
+  --main-color: #416a32;
 }
 
 .swiper-button-prev,
@@ -17,3 +17,4 @@
 .swiper-slide {
   flex-shrink: 1 !important;
 }
+

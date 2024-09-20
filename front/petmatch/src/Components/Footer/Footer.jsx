@@ -35,10 +35,10 @@ function Footer() {
 
     return (
         <footer
-            className={`bg-[#6B8698] md:rounded-t-[20px] rounded-t-none md:px-8 px-4 md:pt-16 pt-16 pb-4 w-full relative`}>
+            className={`bg-[#bad6af] md:rounded-t-[20px] rounded-t-none md:px-8 px-4 md:pt-16 pt-16 pb-4 w-full relative`}>
             <section className='md:pb-0 pb-4 mx-auto max-w-screen-xl'>
                 <form
-                    className={`bg-[#6B8698] lg:flex-nowrap flex-wrap md:px-8 px-4 py-8 lg:pt-8 md:pt-5 md:rounded-2xl rounded-lg w-full flex items-center lg:justify-between justify-center`}
+                    className={`bg-[#416a32] lg:flex-nowrap flex-wrap md:px-8 px-4 py-8 lg:pt-8 md:pt-5 md:rounded-2xl rounded-lg w-full flex items-center lg:justify-between justify-center`}
                     onSubmit={handleSubmit}>
                     <div className='xl:w-1/3 lg:w-2/5 w-full lg:pb-0 pb-5 lg:text-left text-center'>
                         <label
@@ -59,7 +59,7 @@ function Footer() {
                             placeholder='Ingresa tu correo electrónico'
                             className='outline-gray-400 outline-1 md:w-4/5 w-full lg:py-3 py-2 md:rounded-xl rounded-lg px-5'
                         />
-                        <button className='rounded-xl lg:py-3 py-2 md:px-10 px-5 text-white md:mt-0 mt-4 bg-[#6B8698] hover:bg-['>
+                        <button className='rounded-xl lg:py-3 py-2 md:px-10 px-5 text-white md:mt-0 mt-4 bg-[#416A32]'>
                             ¡Suscríbete!
                         </button>
                     </div>
@@ -67,19 +67,19 @@ function Footer() {
                 <section className='w-full flex justify-center items-center pb-7 pt-8 px-3'>
                     <nav className='w-full flex justify-between items-center md:flex-nowrap flex-wrap'>
                         <ul className='md:w-1/2 w-full flex md:justify-start justify-center lg:gap-x-12 gap-x-6 items-center md:flex-nowrap flex-wrap gap-y-2'>
-                            <li className='font-bold lg:text-base text-sm cursor-pointer text-[#FFFFFF]'>
+                            <li className='font-bold lg:text-base text-sm cursor-pointer text-[#416a32]'>
                                 <Link to='/'></Link>
                             </li>
-                            <li className='font-bold lg:text-base text-sm cursor-pointer text-[#FFFFFF]'>
-                                <Link to='/Match'>Ver Mascotas</Link>
+                            <li className='font-bold lg:text-base text-sm cursor-pointer text-[#416a32]'>
+                                <Link to='/Match'>Match</Link>
                             </li>
-                            <li className='font-bold lg:text-base text-sm cursor-pointer text-[#FFFFFF]'>
+                            <li className='font-bold lg:text-base text-sm cursor-pointer text-[#416a32]'>
                                 <Link to='/About Us'>Nosotros</Link>
                             </li>
-                            <li className='font-bold lg:text-base text-sm cursor-pointer text-[#FFFFFF]'>
-                                <Link to='/Testimonials'>Sponsors</Link>
+                            <li className='font-bold lg:text-base text-sm cursor-pointer text-[#416a32]'>
+                                <Link to='/Sponsors'>Patrocinadores</Link>
                             </li>
-                            <li className='font-bold lg:text-base text-sm cursor-pointer text-[#FFFFFF]'>
+                            <li className='font-bold lg:text-base text-sm cursor-pointer text-[#416a32]'>
                                 <Link to='/Blog'>Blog</Link>
                             </li>
                         </ul>
@@ -102,20 +102,20 @@ function Footer() {
             </section>
             <hr className='w-full mx-auto mt-2' />
             <section className='flex md:justify-between justify-center items-center lg:py-8 py-4 md:flex-nowrap flex-wrap mx-auto max-w-screen-xl'>
+                <p className='pt-2 xl:text-base lg:text-sm text-xs text-[#667479]'>
+                    © 2024 PAM. Todos Los Derechos Reservados
+                </p>
                 <figure className='lg:block hidden'>
-                    <img src={Logo} alt='PetMatch Logo' width={150}/>
+                    <img src={Logo} alt='Logo' className="w-24 h-auto" />
                 </figure>
                 <div className='flex justify-between items-center lg:gap-x-8 md:gap-x-2 gap-x-8 md:mt-0 mt-4'>
-                    <p className='pt-1 xl:text-base lg:text-sm text-xs text-[#FFFFFF]'>
+                    <p className='pt-1 xl:text-base lg:text-sm text-xs text-[#667479]'>
                         Términos y Condiciones
                     </p>
-                    <p className='pt-1 xl:text-base lg:text-sm text-xs text-[#FFFFFF]'>
+                    <p className='pt-1 xl:text-base lg:text-sm text-xs text-[#667479]'>
                         Políticas y Privacidad
                     </p>
                 </div>
-                <p className='pt-2 xl:text-base lg:text-sm text-xs text-[#FFFFFF]'>
-                    © 2024 Pet Adoption Manager. Todos Los Derechos Reservados
-                </p>
             </section>
             <canvas
                 ref={confettiRef}
