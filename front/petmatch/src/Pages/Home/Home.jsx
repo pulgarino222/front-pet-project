@@ -6,7 +6,8 @@ import Header from "../../Components/Header/Header";
 import HeroSection from "../../Components/mainHeroSection/HeroSection";
 import AboutSection from "../../Components/aboutSection/AboutSection";
 import ContactSection from "../../Components/contactSection/ContactSection";
-import Testimonials from "../../Components/Testimonials/Testimonials";
+import Sponsors from '../../Components/Sponsors/Sponsors';
+
 
 function Home() {
     useEffect(() => {
@@ -19,8 +20,8 @@ function Home() {
         <div className='App'>
             <Header />
             <HeroSection />
-            <AboutSection />
-            <Testimonials />
+            <AboutSection />  
+            <Sponsors/>  
             <ContactSection />
             <Footer />
         </div>
