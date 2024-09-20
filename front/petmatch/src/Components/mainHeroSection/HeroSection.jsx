@@ -41,9 +41,8 @@ function HeroSection() {
                 </div>
             </section>
         </section>
-        <hr className='w-full border-b-[50px] border-[#f2ece1]' />
     </main>
-);
+    );
 }
 
 export default HeroSection;

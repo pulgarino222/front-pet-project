@@ -4,8 +4,8 @@ module.exports = {
     theme: {
         extend: {
             colors: {
-                bgPrincipal: "#F2ECE1",
-                bgGreen: "#6B8698",
+                bgPrincipal: "#E0E7DE",
+                bgGreen: "#416A32",
             },
             backgroundImage: {
                 "custom-bg": "url('./src/images/fondo.png')",

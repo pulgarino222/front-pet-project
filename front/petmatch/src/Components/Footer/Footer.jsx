@@ -106,7 +106,7 @@ function Footer() {
                     © 2024 PetMatch. Todos Los Derechos Reservados
                 </p>
                 <figure className='lg:block hidden'>
-                    <img src={Logo} alt='PetMatch Logo' />
+                    <img src={Logo} alt='Logo' className="w-24 h-auto" />
                 </figure>
                 <div className='flex justify-between items-center lg:gap-x-8 md:gap-x-2 gap-x-8 md:mt-0 mt-4'>
                     <p className='pt-1 xl:text-base lg:text-sm text-xs text-[#667479]'>
