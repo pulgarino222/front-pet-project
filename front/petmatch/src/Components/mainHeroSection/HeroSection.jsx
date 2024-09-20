@@ -35,7 +35,7 @@ function HeroSection() {
                 <div className='mt-6 space-x-2 sm:space-x-4' data-aos="flip-up" data-aos-delay="600">
                     <button
                         onClick={() => navigate("/Catalogue")}
-                        className='bg-bgGreen text-white rounded-lg px-4 sm:px-6 py-2 hover:bg-[#D8A373]'>
+                        className='bg-bgGreen text-white rounded-lg px-4 sm:px-6 py-2 hover:bg-[#89ac76] '>
                         Ver Mascotas
                     </button>
                 </div>

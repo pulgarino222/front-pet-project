@@ -77,7 +77,7 @@ function Footer() {
                                 <Link to='/About Us'>Nosotros</Link>
                             </li>
                             <li className='font-bold lg:text-base text-sm cursor-pointer text-[#416a32]'>
-                                <Link to='/Testimonials'>Testimonios</Link>
+                                <Link to='/Sponsors'>Patrocinadores</Link>
                             </li>
                             <li className='font-bold lg:text-base text-sm cursor-pointer text-[#416a32]'>
                                 <Link to='/Blog'>Blog</Link>
@@ -103,7 +103,7 @@ function Footer() {
             <hr className='w-full mx-auto mt-2' />
             <section className='flex md:justify-between justify-center items-center lg:py-8 py-4 md:flex-nowrap flex-wrap mx-auto max-w-screen-xl'>
                 <p className='pt-2 xl:text-base lg:text-sm text-xs text-[#667479]'>
-                    © 2024 PetMatch. Todos Los Derechos Reservados
+                    © 2024 PAM. Todos Los Derechos Reservados
                 </p>
                 <figure className='lg:block hidden'>
                     <img src={Logo} alt='Logo' className="w-24 h-auto" />
