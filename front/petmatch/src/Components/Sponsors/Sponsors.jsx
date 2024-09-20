@@ -8,9 +8,11 @@ import SponsorCard from "./SponsorCard";
 
 
 // Importa las imágenes locales
-import imagen1 from '../../images/testimonio1.jpg';
-import imagen2 from '../../images/testimonio2.webp';
-import imagen3 from '../../images/testimonio3.jfif';
+import imagen1 from '../../images/patrocinador1.jfif';
+import imagen2 from '../../images/patrocinador2.jpg';
+import imagen3 from '../../images/patrocinador3.png';
+import imagen4 from '../../images/patrocinador4.jpg';
+import imagen5 from '../../images/patrocinador5.png';
 
 function Sponsors() {
     useEffect(() => {
@@ -31,37 +33,32 @@ function Sponsors() {
         pauseOnHover: false,
     };
 
-    // Datos de testimonios estáticos
+   
     const sponsors = [
         {
-            first_name: "Juan",
-            last_name: "Pérez",
-            comment: "PetMatch me ayudó a encontrar el compañero perfecto para mi familia. ¡Estamos muy felices!",
+            name: "NutreCAN",
+            comment: "En NutreCAN, nos enorgullece colaborar con PAM para asegurar que cada mascota adoptada reciba la nutrición que merece.",
             img: imagen1
         },
         {
-            first_name: "María",
-            last_name: "González",
-            comment: "Gracias a PetMatch, pude adoptar a mi adorable gato. El proceso fue fácil y rápido.",
+            name: "Cat Chow",
+            comment: "Junto a PAM, Cat Chow se compromete a proporcionar alimentos de calidad para las mascotas recién adoptadas.",
             img: imagen2
         },
         {
-            first_name: "Carlos",
-            last_name: "Rodríguez",
-            comment: "Excelente plataforma para conectar con mascotas que necesitan un hogar. Muy recomendado.",
+            name: "Dog Chow",
+            comment: "Dog Chow se une a PAM en su misión de encontrar hogares amorosos, ofreciendo nutrición científica para cada etapa de vida.",
             img: imagen3
         },
         {
-            first_name: "Carlos",
-            last_name: "Rodríguez",
-            comment: "Excelente plataforma para conectar con mascotas que necesitan un hogar. Muy recomendado.",
-            img: imagen3
+            name: "Mirringo",
+            comment: "Mirringo apoya a PAM en su labor de adopción, asegurando que cada gato tenga una vida saludable y feliz.",
+            img: imagen4
         },
         {
-            first_name: "Carlos",
-            last_name: "Rodríguez",
-            comment: "Excelente plataforma para conectar con mascotas que necesitan un hogar. Muy recomendado.",
-            img: imagen2
+            name: "Pedigree",
+            comment: "Pedigree se enorgullece de patrocinar a PAM, ayudando a que los perros adoptados disfruten de una alimentación deliciosa y nutritiva.",
+            img: imagen5
         },
     ];
 
@@ -70,7 +67,7 @@ function Sponsors() {
             id='Sponsors'
             className='bg-[#D1E0CB] lg:py-28 md:py-20 py-16 overflow-hidden'>
             <h3 className='text-[#416A32] lg:text-5xl text-3xl text-center font-bold md:pb-16 pb-10'>
-                Testimonios
+                Patrocinadores
             </h3>
             <section
                 className='mx-auto max-w-screen-xl rounded-2xl px-8 relative'
