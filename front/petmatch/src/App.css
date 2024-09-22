@@ -18,3 +18,18 @@
   flex-shrink: 1 !important;
 }
 
+.btn-custom {
+  background-color: transparent; /* Fondo transparente por defecto */
+  border: none;
+  color: white; /* Color del texto */
+  padding: 10px 15px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease; /* Transición suave */
+}
+
+.btn-custom:hover {
+  background-color: #E0E7DE; /* Color de fondo al pasar el mouse */
+  color: #333; /* Cambia el color del texto al pasar el mouse */
+}
+
+

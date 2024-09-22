@@ -76,7 +76,7 @@ function Header() {
                                 <li>                                  
                                     <Link
                                         to='/'
-                                        className='hover:underline block py-2 px-3 text-black rounded  md:p-0 md:dark:underline'
+                                        className='block py-2 px-3 text-black rounded  md:p-0 md:dark:underline'
                                         aria-current='page'>
                                         Inicio
                                     </Link>

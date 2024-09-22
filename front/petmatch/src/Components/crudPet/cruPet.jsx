@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 const PetForm = () => {
   const navigate = useNavigate();
@@ -132,8 +133,17 @@ const PetForm = () => {
 
   return (
     <>
-      <header className="bg-gray-800 text-white p-4 flex justify-between items-center">
+      <header className="bg-gray-600 text-white p-4 flex justify-between items-center">
         <h1 className="text-lg font-bold">Dashboard de Mascotas</h1>
+        <li className="list-none ml-auto mr-4"> {/* Quitamos bullets y usamos margen automático para alinear */}
+        <Link
+          to="/"
+          className="text-lg font-bold no-underline" // Sin decoración por defecto
+          aria-current="page"
+        >
+          Inicio
+        </Link>
+      </li>
         <button onClick={toggleMenu} className="focus:outline-none">
           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16m-7 6h7" />
@@ -142,123 +152,158 @@ const PetForm = () => {
       </header>
 
       {menuVisible && (
-        <nav className="bg-gray-700 text-white p-4">
-          <ul>
-            <li className="mb-2">
-              <button className="w-full text-left" onClick={() => { navigateToCreate(); handleOptionClick(); }}>
-                Crear Mascota
-              </button>
-            </li>
-            <li className="mb-2">
-              <button className="w-full text-left" onClick={() => { navigateToGetAll(); handleOptionClick(); }}>
-                Obtener Todas las Mascotas
-              </button>
-            </li>
-            <li className="mb-2">
-              <button className="w-full text-left" onClick={() => { navigateToFilterById(); handleOptionClick(); }}>
-                Filtrar por ID
-              </button>
-            </li>
-            <li className="mb-2">
-              <button className="w-full text-left" onClick={() => {navigateToDelete(); handleOptionClick(); }}>
-                Eliminar Mascota
-              </button>
-            </li>
-          </ul>
-        </nav>
-      )}
+       <nav className="bg-gray-400 text-white p-4">
+            <ul>
+              <li className="mb-2">
+                <button
+                  className="btn-custom w-full text-left"
+                  onClick={() => { navigateToCreate(); handleOptionClick(); }}
+                >
+                  Crear Mascota
+                </button>
+              </li>
+              <li className="mb-2">
+                <button
+                  className="btn-custom w-full text-left"
+                  onClick={() => { navigateToGetAll(); handleOptionClick(); }}
+                >
+                  Obtener Todas las Mascotas
+                </button>
+              </li>
+              <li className="mb-2">
+                <button
+                  className="btn-custom w-full text-left"
+                  onClick={() => { navigateToFilterById(); handleOptionClick(); }}
+                >
+                  Filtrar por ID
+                </button>
+              </li>
+              <li className="mb-2">
+                <button
+                  className="btn-custom w-full text-left"
+                  onClick={() => { navigateToDelete(); handleOptionClick(); }}
+                >
+                  Eliminar Mascota
+                </button>
+              </li>
+            </ul>
+          </nav>
+        )}
 
-      <form onSubmit={handleSubmit} className="max-w-lg mx-auto p-4 bg-white rounded shadow-md">
-        <h2 className="text-xl font-bold mb-4">Crear Mascota</h2>
-        {/* Form Fields */}
-        <div className="mb-4">
-          <label className="block mb-1">Nombre</label>
-          <input type="text" name="name" value={formData.name} onChange={handleChange} className="border p-2 w-full" />
-        </div>
-        <div className="mb-4">
-          <label className="block mb-1">Edad</label>
-          <input type="number" name="age" value={formData.age} onChange={handleChange} className="border p-2 w-full" required />
-        </div>
-        <div className="mb-4">
-          <label className="block mb-1">Sexo</label>
-          <select name="sex" value={formData.sex} onChange={handleChange} className="border p-2 w-full">
-            <option value="macho">Macho</option>
-            <option value="hembra">Hembra</option>
-          </select>
-        </div>
-        <div className="mb-4">
-          <label className="block mb-1">Tamaño actual</label>
-          <select name="size.current" value={formData.size.current} onChange={handleChange} className="border p-2 w-full" required>
-            <option value="">Seleccione</option>
-            <option value="pequeño">Pequeño</option>
-            <option value="mediano">Mediano</option>
-            <option value="grande">Grande</option>
-          </select>
-        </div>
-        <div className="mb-4">
-          <label className="block mb-1">Tamaño estimado</label>
-          <select name="size.estimated" value={formData.size.estimated} onChange={handleChange} className="border p-2 w-full" required>
-            <option value="">Seleccione</option>
-            <option value="pequeño">Pequeño</option>
-            <option value="mediano">Mediano</option>
-            <option value="grande">Grande</option>
-            <option value="desconocido">Desconocido</option>
-          </select>
-        </div>
-        <div className="mb-4">
-          <label className="block mb-1">Peso</label>
-          <input type="number" name="weight" value={formData.weight} onChange={handleChange} className="border p-2 w-full" required />
-        </div>
-        <div className="mb-4">
-          <label className="block mb-1">Tiempo en el refugio</label>
-          <input type="text" name="time_at_the_shelter" value={formData.time_at_the_shelter} onChange={handleChange} className="border p-2 w-full" required />
-        </div>
-        <div className="mb-4">
-          <label className="block mb-1">Historial de salud</label>
-          <input type="text" name="health_history" value={formData.health_history} onChange={handleChange} className="border p-2 w-full" required />
-        </div>
-        <div className="mb-4">
-          <label className="block mb-1">Tratamientos anteriores</label>
-          <input type="text" name="health.previous_treatments" value={formData.health.previous_treatments} onChange={handleChange} className="border p-2 w-full" />
-        </div>
-        <div className="mb-4">
-          <label className="block mb-1">Desparacitado</label>
-          <input type="text" name="health.dewormed" value={formData.health.dewormed} onChange={handleChange} className="border p-2 w-full" />
-        </div>
-        <div className="mb-4">
-          <label className="block mb-1">Necesidades médicas</label>
-          <input type="text" name="health.medical_necessity" value={formData.health.medical_necessity} onChange={handleChange} className="border p-2 w-full" />
-        </div>
-        <div className="mb-4">
-          <label className="block mb-1">Esterilizado</label>
-          <input type="text" name="health.sterilization" value={formData.health.sterilization} onChange={handleChange} className="border p-2 w-full" />
-        </div>
-        <div className="mb-4">
-          <label className="block mb-1">Vacunas</label>
-          <input type="text" name="health.vaccines" value={formData.health.vaccines} onChange={handleChange} className="border p-2 w-full" />
-        </div>
-        <div className="mb-4">
-          <label className="block mb-1">Personalidad</label>
-          <input type="text" name="personality" value={formData.personality} onChange={handleChange} className="border p-2 w-full" />
-        </div>
-        <div className="mb-4">
-          <label className="block mb-1">ID de usuario</label>
-          <input type="text" name="userId" value={formData.userId} onChange={handleChange} className="border p-2 w-full" />
-        </div>
-        <div className="mb-4">
-          <label className="block mb-1">ID de raza</label>
-          <input type="text" name="breedId" value={formData.breedId} onChange={handleChange} className="border p-2 w-full" />
-        </div>
-        <div className="mb-4">
-          <label className="block mb-1">ID de especie</label>
-          <input type="text" name="specieId" value={formData.specieId} onChange={handleChange} className="border p-2 w-full" />
-        </div>
-        <div className="mb-4">
-          <label className="block mb-1">Imagen</label>
-          <input type="file" name="image" onChange={handleFileChange} className="border p-2 w-full" />
-        </div>
-        <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">Crear Mascota</button>
-      </form>
+
+
+        <form onSubmit={handleSubmit} className="max-w-4xl mx-auto p-6 bg-white rounded shadow-md grid grid-cols-1 md:grid-cols-2 gap-4">
+          <h2 className="text-2xl font-bold mb-4 md:col-span-2 text-center">Registro mascota</h2>
+
+          <div className="mb-4">
+            <label className="block mb-1">Nombre</label>
+            <input type="text" name="name" value={formData.name} onChange={handleChange} className="border p-2 w-full" />
+          </div>
+
+          <div className="mb-4">
+            <label className="block mb-1">Edad</label>
+            <input type="number" name="age" value={formData.age} onChange={handleChange} className="border p-2 w-full" required />
+          </div>
+
+          <div className="mb-4">
+            <label className="block mb-1">Sexo</label>
+            <select name="sex" value={formData.sex} onChange={handleChange} className="border p-2 w-full">
+              <option value="macho">Macho</option>
+              <option value="hembra">Hembra</option>
+            </select>
+          </div>
+
+          <div className="mb-4">
+            <label className="block mb-1">Tamaño actual</label>
+            <select name="size.current" value={formData.size.current} onChange={handleChange} className="border p-2 w-full" required>
+              <option value="">Seleccione</option>
+              <option value="pequeño">Pequeño</option>
+              <option value="mediano">Mediano</option>
+              <option value="grande">Grande</option>
+            </select>
+          </div>
+
+          <div className="mb-4">
+            <label className="block mb-1">Tamaño estimado</label>
+            <select name="size.estimated" value={formData.size.estimated} onChange={handleChange} className="border p-2 w-full" required>
+              <option value="">Seleccione</option>
+              <option value="pequeño">Pequeño</option>
+              <option value="mediano">Mediano</option>
+              <option value="grande">Grande</option>
+              <option value="desconocido">Desconocido</option>
+            </select>
+          </div>
+
+          <div className="mb-4">
+            <label className="block mb-1">Peso</label>
+            <input type="number" name="weight" value={formData.weight} onChange={handleChange} className="border p-2 w-full" required />
+          </div>
+
+          <div className="mb-4">
+            <label className="block mb-1">Tiempo en el refugio</label>
+            <input type="text" name="time_at_the_shelter" value={formData.time_at_the_shelter} onChange={handleChange} className="border p-2 w-full" required />
+          </div>
+
+          <div className="mb-4">
+            <label className="block mb-1">Historial de salud</label>
+            <input type="text" name="health_history" value={formData.health_history} onChange={handleChange} className="border p-2 w-full" required />
+          </div>
+
+          <div className="mb-4">
+            <label className="block mb-1">Tratamientos anteriores</label>
+            <input type="text" name="health.previous_treatments" value={formData.health.previous_treatments} onChange={handleChange} className="border p-2 w-full" />
+          </div>
+
+          <div className="mb-4">
+            <label className="block mb-1">Desparacitado</label>
+            <input type="text" name="health.dewormed" value={formData.health.dewormed} onChange={handleChange} className="border p-2 w-full" />
+          </div>
+
+          <div className="mb-4">
+            <label className="block mb-1">Necesidades médicas</label>
+            <input type="text" name="health.medical_necessity" value={formData.health.medical_necessity} onChange={handleChange} className="border p-2 w-full" />
+          </div>
+
+          <div className="mb-4">
+            <label className="block mb-1">Esterilizado</label>
+            <input type="text" name="health.sterilization" value={formData.health.sterilization} onChange={handleChange} className="border p-2 w-full" />
+          </div>
+
+          <div className="mb-4">
+            <label className="block mb-1">Vacunas</label>
+            <input type="text" name="health.vaccines" value={formData.health.vaccines} onChange={handleChange} className="border p-2 w-full" />
+          </div>
+
+          <div className="mb-4">
+            <label className="block mb-1">Personalidad</label>
+            <input type="text" name="personality" value={formData.personality} onChange={handleChange} className="border p-2 w-full" />
+          </div>
+
+          <div className="mb-4">
+            <label className="block mb-1">ID de usuario</label>
+            <input type="text" name="userId" value={formData.userId} onChange={handleChange} className="border p-2 w-full" />
+          </div>
+
+          <div className="mb-4">
+            <label className="block mb-1">ID de raza</label>
+            <input type="text" name="breedId" value={formData.breedId} onChange={handleChange} className="border p-2 w-full" />
+          </div>
+
+          <div className="mb-4">
+            <label className="block mb-1">ID de especie</label>
+            <input type="text" name="specieId" value={formData.specieId} onChange={handleChange} className="border p-2 w-full" />
+          </div>
+
+          <div className="mb-4">
+            <label className="block mb-1">Imagen</label>
+            <input type="file" name="image" onChange={handleFileChange} className="border p-2 w-full" />
+          </div>
+
+          <div className="md:col-span-2 flex justify-center">
+            <button type="submit" className="bg-gray-700 text-white px-6 py-2 rounded-md">Registrar Mascota</button>
+          </div>
+        </form>
+
 
       {/* Modal */}
       {modalVisible && (
@@ -276,4 +321,3 @@ const PetForm = () => {
 };
 
 export default PetForm;
-
