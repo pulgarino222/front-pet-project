@@ -6,7 +6,7 @@ import PetsContext from "../../Context/GlobalContext";
 function Header() {
     const navigate = useNavigate();
 
-    const { allPets, userID } = useContext(PetsContext);
+    const { allPets} = useContext(PetsContext);
 
     // console.log(userID.id);
 

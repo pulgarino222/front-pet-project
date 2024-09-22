@@ -11,7 +11,7 @@ import ComingSoon from "../Pages/Comming Soon/CommingSoon";
 import PetsContext from "../Context/GlobalContext";
 import { useContext } from "react";
 import Loader from "../Components/Loading";
-import AboutPage from "../Components/aboutPage/AboutPage";
+import AboutPage from "../Components/aboutPage/aboutPage";
 import PetCRUD from "../Components/crudPet/cruPet";
 import AllPets from "../Components/crudPet/getAllPets";
 import FilterPetById from "../Components/crudPet/filterByIdPet";
