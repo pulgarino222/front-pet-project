@@ -51,7 +51,7 @@ function Register() {
                     text: "Usuario creado exitosamente",
                     icon: "success",
                 }).then(() => {
-                    navigate("/Match");
+                    navigate("/crudPet");
                 });
             } else {
                 const errorData = await response.json();
