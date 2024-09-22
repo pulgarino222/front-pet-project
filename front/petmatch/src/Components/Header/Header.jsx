@@ -50,8 +50,7 @@ function Header() {
     useEffect(() => {
         setToken(localStorage.getItem("token"));
     }, []);
-
-    // Simular el log out
+    
     const handleLogout = () => {
         localStorage.removeItem("token");
         setToken(null);
@@ -62,7 +61,7 @@ function Header() {
         <header>
             <nav className='bg-transparent relative z-20'>
                 <div className='max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4'>
-                    {/* poner link de react router dom y q te redirija a match */}
+                    {/* put link from react router dom match (first mcv) */}
                     {/* <a href="/" className="flex items-center space-x-3 rtl:space-x-reverse">
                     </a> */}
                     <Link to={"/"} className='flex items-center'>
@@ -74,8 +73,7 @@ function Header() {
                             className='items-center justify-between hidden w-full md:flex md:w-auto '
                             id='navbar-search'>
                             <ul className=' font-bold flex text-base flex-col p-4 md:p-0 mt-4 m border rounded-lg md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0'>
-                                <li>
-                                    {/* <a href="/" className="hover:underline block py-2 px-3 text-black rounded  md:p-0 md:dark:underline" aria-current="page">Incio</a> */}
+                                <li>                                  
                                     <Link
                                         to='/'
                                         className='hover:underline block py-2 px-3 text-black rounded  md:p-0 md:dark:underline'
@@ -83,20 +81,16 @@ function Header() {
                                         Inicio
                                     </Link>
                                 </li>
-                                <li>
-                                    {/* <a href="/" className="block py-2 px-3 text-black rounded md:p-0 md:dark:hover:underline">Match</a> */}
+
+                                 {/* <li>
+                                    { <a href="/" className="block py-2 px-3 text-black rounded md:p-0 md:dark:hover:underline">Match</a> }
                                     <Link
                                         to='/Match'
                                         className='block py-2 px-3 text-black rounded md:p-0 md:dark:hover:underline'>
                                         Match
-                                    </Link>
-                                </li>
-                                <li>
-                                    {/* <a
-                                    href='/#About-Us'
-                                    className='block py-2 px-3 text-black rounded md:p-0 md:dark:hover:underline'>
-                                    Nosotros
-                                </a> */}
+                                    </Link>                                    
+                                </li>  */}
+                                <li>                            
                                     <Link
                                         to='/About-Us'
                                         className='block py-2 px-3 text-black rounded md:p-0 md:dark:hover:underline'>
@@ -105,9 +99,9 @@ function Header() {
                                 </li>
                                 <li>
                                     <a
-                                        href='/#Testimonials'
+                                        href='/#Sponsors'
                                         className='block py-2 px-3 text-black rounded md:p-0 md:dark:hover:underline'>
-                                        Testimonios
+                                        Patrocinadores
                                     </a>
                                 </li>
                             </ul>
@@ -239,15 +233,7 @@ function Header() {
                                                         Mi cuenta
                                                     </Link>
                                                 </li>
-
-                                                <li>
-                                                    <Link
-                                                        to='/Matches'
-                                                        className='block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100'>
-                                                        Matches
-                                                    </Link>
-                                                </li>
-
+                                               
                                                 <li>
                                                     <button
                                                         onClick={handleLogout}

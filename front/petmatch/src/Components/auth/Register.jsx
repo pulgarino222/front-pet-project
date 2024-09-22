@@ -10,6 +10,10 @@ function Register() {
         fullName: "",
         email: "",
         password: "",
+        phone: "",
+        whatsapp: "",
+        adress: "", // Cambiado a "adress"
+        roles: [],
         terms: false,
     });
 
@@ -24,7 +28,6 @@ function Register() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // Realiza la solicitud de registro al backend
         try {
             const response = await fetch("http://localhost:3001/auth/register", {
                 method: "POST",
@@ -35,10 +38,13 @@ function Register() {
                     entityName: formData.fullName,
                     email: formData.email,
                     password: formData.password,
+                    phone: Number(formData.phone),
+                    whatsapp: Number(formData.whatsapp),
+                    adress: formData.adress, // Cambiado a "adress"
+                    roles: formData.roles,
                 }),
             });
 
-            // Si la respuesta es exitosa, redirige al usuario
             if (response.ok) {
                 Swal.fire({
                     title: "Éxito",
@@ -48,15 +54,14 @@ function Register() {
                     navigate("/Match");
                 });
             } else {
-                // Manejo genérico para errores
+                const errorData = await response.json();
                 Swal.fire({
                     title: "Ups",
-                    text: "Ocurrió un error al crear el usuario",
+                    text: errorData.message || "Ocurrió un error al crear el usuario",
                     icon: "error",
                 });
             }
         } catch (error) {
-            // Manejo genérico para errores de red
             Swal.fire({
                 title: "Ups",
                 text: "Ocurrió un error al crear el usuario",
@@ -112,15 +117,45 @@ function Register() {
                     </div>
                     <div>
                         <label
-                            htmlFor='password'
+                            htmlFor='phone'
                             className='block mb-2 text-sm font-medium text-black/40'>
-                            Contraseña
+                            Número de Teléfono
                         </label>
                         <input
-                            type='password'
-                            id='password'
+                            type='tel'
+                            id='phone'
                             className='shadow-sm bg-transparent border border-[#9F9F9F] outline-none text-gray-900 text-sm rounded-lg block w-full p-2.5'
-                            value={formData.password}
+                            value={formData.phone}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
+                    <div>
+                        <label
+                            htmlFor='whatsapp'
+                            className='block mb-2 text-sm font-medium text-black/40'>
+                            Número de WhatsApp
+                        </label>
+                        <input
+                            type='tel'
+                            id='whatsapp'
+                            className='shadow-sm bg-transparent border border-[#9F9F9F] outline-none text-gray-900 text-sm rounded-lg block w-full p-2.5'
+                            value={formData.whatsapp}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
+                    <div>
+                        <label
+                            htmlFor='adress' // Cambiado a "adress"
+                            className='block mb-2 text-sm font-medium text-black/40'>
+                            Dirección
+                        </label>
+                        <input
+                            type='text'
+                            id='adress' // Cambiado a "adress"
+                            className='shadow-sm bg-transparent border border-[#9F9F9F] outline-none text-gray-900 text-sm rounded-lg block w-full p-2.5'
+                            value={formData.adress} // Cambiado a "adress"
                             onChange={handleChange}
                             required
                         />
@@ -130,7 +165,6 @@ function Register() {
                             <input
                                 id='terms'
                                 type='checkbox'
-                                value=''
                                 className='w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300'
                                 checked={formData.terms}
                                 onChange={handleChange}
@@ -168,5 +202,3 @@ function Register() {
 }
 
 export default Register;
-
-
