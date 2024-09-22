@@ -13,6 +13,8 @@ const FilterPetById = () => {
     setPetId(e.target.value);
   };
 
+
+
   const fetchPetById = async () => {
     try {
       const response = await fetch(`http://localhost:3001/pets/${petId}`);

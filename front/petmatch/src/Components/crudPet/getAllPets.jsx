@@ -11,6 +11,10 @@ const AllPets = () => {
     setMenuVisible((prev) => !prev);
   };
 
+  const handleOptionClick = () => {
+    setMenuVisible(false);
+  };
+
   const navigateToCreate = () => {
     navigate('/petcrud');
     setMenuVisible(false);
@@ -30,10 +34,7 @@ const AllPets = () => {
     navigate('/petcrud/delete');
     setMenuVisible(false);
   };
-
-  const handleOptionClick = () => {
-    setMenuVisible(false);
-  };
+ 
 
   useEffect(() => {
     const fetchPets = async () => {

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Link } from "react-router-dom"; 
 
 const DeleteUser = () => {
   const navigate = useNavigate();
@@ -10,6 +11,10 @@ const DeleteUser = () => {
 
   const toggleMenu = () => {
     setMenuVisible(prev => !prev);
+  };
+
+  const handleOptionClick = () => {
+    setMenuVisible(false);
   };
 
   const navigateToDeleteUser = () => {
@@ -72,8 +77,17 @@ const DeleteUser = () => {
 
   return (
     <>
-      <header className="bg-gray-800 text-white p-4 flex justify-between items-center">
+      <header className="bg-gray-600 text-white p-4 flex justify-between items-center">
         <h1 className="text-lg font-bold">Eliminar Usuario</h1>
+        <li className="list-none ml-auto mr-4"> {/* Quitamos bullets y usamos margen automático para alinear */}
+        <Link
+          to="/"
+          className="text-lg font-bold no-underline" // Sin decoración por defecto
+          aria-current="page"
+        >
+          Inicio
+        </Link>
+      </li>
         <button onClick={toggleMenu} className="focus:outline-none">
           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16m-7 6h7" />
@@ -82,31 +96,44 @@ const DeleteUser = () => {
       </header>
 
       {menuVisible && (
-        <nav className="bg-gray-700 text-white p-4">
-          <ul>
-            <li className="mb-2">
-              <button className="w-full text-left" onClick={navigateToDeleteUser}>
-                Eliminar Usuario
-              </button>
-            </li>
-            <li className="mb-2">
-              <button className="w-full text-left" onClick={navigateToGetAllUser}>
-                Obtener Todos los Usuarios
-              </button>
-            </li>
-            <li className="mb-2">
-              <button className="w-full text-left" onClick={navigateToGetByIdUser}>
-                Obtener Usuario por ID
-              </button>
-            </li>
-            <li className="mb-2">
-              <button className="w-full text-left" onClick={navigateToUpdateUser}>
-                Actualizar Usuario
-              </button>
-            </li>
-          </ul>
-        </nav>
-      )}
+       <nav className="bg-gray-400 text-white p-4">
+            <ul>
+              <li className="mb-2">
+                <button
+                  className="btn-custom w-full text-left"
+                  onClick={() => { navigateToDeleteUser(); handleOptionClick(); }}
+                >
+                  Eliminar Usuario
+                </button>
+              </li>
+              <li className="mb-2">
+                <button
+                  className="btn-custom w-full text-left"
+                  onClick={() => { navigateToGetAllUser(); handleOptionClick(); }}
+                >
+                  Obtener Todos los Usuarios
+                </button>
+              </li>
+              <li className="mb-2">
+                <button
+                  className="btn-custom w-full text-left"
+                  onClick={() => { navigateToGetByIdUser(); handleOptionClick(); }}
+                >
+                  Obtener Usuario por ID
+                </button>
+              </li>
+              <li className="mb-2">
+                <button
+                  className="btn-custom w-full text-left"
+                  onClick={() => { navigateToUpdateUser(); handleOptionClick(); }}
+                >
+                  Actualizar Usuario
+                </button>
+              </li>
+            </ul>
+          </nav>
+        )}
+
 
       <div className="max-w-md mx-auto p-4">
         <input
