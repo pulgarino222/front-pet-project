@@ -3,10 +3,10 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import huella from "../../images/Huella.svg";
 import perrito from "../../images/perrito.png";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function AboutSection() {
-    // const navigate = useNavigate();
+     const navigate = useNavigate();
 
     useEffect(() => {
         AOS.init({
@@ -43,14 +43,11 @@ function AboutSection() {
                         className='my-4 md:text-lg text-[#444444]'
                         data-aos='fade-up'
                         data-aos-delay='200'>
-                        En PAM, conectamos fundaciones de rescate con personas dispuestas a adoptar mascotas, 
-                        brindando un espacio donde pueden publicar animales disponibles para adopción. 
-                        Facilitamos el proceso de encontrar un hogar amoroso, creyendo que cada mascota merece una 
-                        segunda oportunidad. ¡Únete a nosotros y ayuda a cambiar una vida!
+                        En PAM, conectamos fundaciones de rescate con personas dispuestas a adoptar mascotas,brindando un espacio donde pueden publicar animales disponibles para adopción.Facilitamos el proceso de encontrar un hogar amoroso, creyendo que cada mascota merece una segunda oportunidad. ¡Únete a nosotros y ayuda a cambiar una vida!
                     </p>
                     
                     <button
-                        // onClick={() => navigate("/About-us")}
+                        onClick={() => navigate('/About-us')}
                         className='bg-bgGreen text-white py-2 px-4 rounded'
                         data-aos='fade-up'
                         data-aos-delay='300'>
