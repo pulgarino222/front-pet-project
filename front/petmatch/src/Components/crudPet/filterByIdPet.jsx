@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Asegúrate de que tienes react-router-dom instalado
+import { useNavigate } from 'react-router-dom'; // Asegúrate de que tienes react-router-dom 
+import { Link } from "react-router-dom";
 
 const FilterPetById = () => {
   const [petId, setPetId] = useState('');
@@ -61,8 +62,17 @@ const FilterPetById = () => {
   return (
     <>
       {/* Header agregado */}
-      <header className="bg-gray-800 text-white p-4 flex justify-between items-center">
+      <header className="bg-gray-600 text-white p-4 flex justify-between items-center">
         <h1 className="text-lg font-bold">Dashboard de Mascotas</h1>
+        <li className="list-none ml-auto mr-4"> {/* Quitamos bullets y usamos margen automático para alinear */}
+        <Link
+          to="/"
+          className="text-lg font-bold no-underline" // Sin decoración por defecto
+          aria-current="page"
+        >
+          Inicio
+        </Link>
+      </li>
         <button onClick={toggleMenu} className="focus:outline-none">
           <svg
             className="w-6 h-6"
@@ -77,35 +87,48 @@ const FilterPetById = () => {
       </header>
 
       {menuVisible && (
-        <nav className="bg-gray-700 text-white p-4">
-          <ul>
-            <li className="mb-2">
-              <button className="w-full text-left" onClick={() => { navigateToCreate(); handleOptionClick(); }}>
-                Crear Mascota
-              </button>
-            </li>
-            <li className="mb-2">
-              <button className="w-full text-left" onClick={() => { navigateToGetAll(); handleOptionClick(); }}>
-                Obtener Todas las Mascotas
-              </button>
-            </li>
-            <li className="mb-2">
-              <button className="w-full text-left" onClick={() => { navigateToFilterById(); handleOptionClick(); }}>
-                Filtrar por ID
-              </button>
-            </li>
-            <li className="mb-2">
-              <button className="w-full text-left" onClick={() => { navigateToDeleteById(); handleOptionClick(); }}>
-                Eliminar Mascota
-              </button>
-            </li>
-          </ul>
-        </nav>
-      )}
+       <nav className="bg-gray-400 text-white p-4">
+            <ul>
+              <li className="mb-2">
+                <button
+                  className="btn-custom w-full text-left"
+                  onClick={() => { navigateToCreate(); handleOptionClick(); }}
+                >
+                  Crear Mascota
+                </button>
+              </li>
+              <li className="mb-2">
+                <button
+                  className="btn-custom w-full text-left"
+                  onClick={() => { navigateToGetAll(); handleOptionClick(); }}
+                >
+                  Obtener Todas las Mascotas
+                </button>
+              </li>
+              <li className="mb-2">
+                <button
+                  className="btn-custom w-full text-left"
+                  onClick={() => { navigateToFilterById(); handleOptionClick(); }}
+                >
+                  Filtrar por ID
+                </button>
+              </li>
+              <li className="mb-2">
+                <button
+                  className="btn-custom w-full text-left"
+                  onClick={() => { navigateToDeleteById(); handleOptionClick(); }}
+                >
+                  Eliminar Mascota
+                </button>
+              </li>
+            </ul>
+          </nav>
+        )}
+
 
       <div className="max-w-lg mx-auto p-4">
         {/* Header estilizado */}
-        <div className="bg-gradient-to-r from-purple-500 to-indigo-500 text-white rounded-lg shadow-lg p-4 mb-4">
+        <div className="bg-gradient-to-r from-gray-500 to-gray-400 text-white rounded-lg shadow-lg p-4 mb-4">
           <h2 className="text-3xl font-bold">Filtrar Mascota por ID</h2>
           <p className="text-sm mt-1">Ingresa el ID de la mascota que deseas buscar</p>
         </div>
@@ -121,7 +144,7 @@ const FilterPetById = () => {
           />
           <button
             onClick={fetchPetById}
-            className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+            className="bg-gray-700 text-white px-4 py-2 rounded hover:bg-gray-500"
           >
             Buscar
           </button>

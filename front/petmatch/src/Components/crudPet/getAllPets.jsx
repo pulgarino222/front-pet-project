@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 const AllPets = () => {
   const navigate = useNavigate();
@@ -54,8 +55,17 @@ const AllPets = () => {
 
   return (
     <>
-      <header className="bg-gray-800 text-white p-4 flex justify-between items-center">
+      <header className="bg-gray-600 text-white p-4 flex justify-between items-center">
         <h1 className="text-lg font-bold">Listado de Mascotas</h1>
+        <li className="list-none ml-auto mr-4"> {/* Quitamos bullets y usamos margen automático para alinear */}
+        <Link
+          to="/"
+          className="text-lg font-bold no-underline" // Sin decoración por defecto
+          aria-current="page"
+        >
+          Inicio
+        </Link>
+      </li>
         <button onClick={toggleMenu} className="focus:outline-none">
           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16m-7 6h7" />
@@ -64,31 +74,44 @@ const AllPets = () => {
       </header>
 
       {menuVisible && (
-        <nav className="bg-gray-700 text-white p-4">
-          <ul>
-            <li className="mb-2">
-              <button className="w-full text-left" onClick={() => { navigateToCreate(); handleOptionClick(); }}>
-                Crear Mascota
-              </button>
-            </li>
-            <li className="mb-2">
-              <button className="w-full text-left" onClick={() => { navigateToGetAll(); handleOptionClick(); }}>
-                Obtener Todas las Mascotas
-              </button>
-            </li>
-            <li className="mb-2">
-              <button className="w-full text-left" onClick={() => { navigateToGetById(); handleOptionClick(); }}>
-                Filtrar por ID
-              </button>
-            </li>
-            <li className="mb-2">
-              <button className="w-full text-left" onClick={() => { navigateToDelete(); handleOptionClick(); }}>
-                Eliminar Mascota
-              </button>
-            </li>
-          </ul>
-        </nav>
-      )}
+       <nav className="bg-gray-400 text-white p-4">
+            <ul>
+              <li className="mb-2">
+                <button
+                  className="btn-custom w-full text-left"
+                  onClick={() => { navigateToCreate(); handleOptionClick(); }}
+                >
+                  Crear Mascota
+                </button>
+              </li>
+              <li className="mb-2">
+                <button
+                  className="btn-custom w-full text-left"
+                  onClick={() => { navigateToGetAll(); handleOptionClick(); }}
+                >
+                  Obtener Todas las Mascotas
+                </button>
+              </li>
+              <li className="mb-2">
+                <button
+                  className="btn-custom w-full text-left"
+                  onClick={() => { navigateToGetById(); handleOptionClick(); }}
+                >
+                  Filtrar por ID
+                </button>
+              </li>
+              <li className="mb-2">
+                <button
+                  className="btn-custom w-full text-left"
+                  onClick={() => { navigateToDelete(); handleOptionClick(); }}
+                >
+                  Eliminar Mascota
+                </button>
+              </li>
+            </ul>
+          </nav>
+        )}
+
 
       <div className="max-w-6xl mx-auto p-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {pets.map((pet) => (
