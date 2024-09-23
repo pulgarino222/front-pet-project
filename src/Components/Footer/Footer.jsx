@@ -71,13 +71,10 @@ function Footer() {
                                 <Link to='/'></Link>
                             </li>
                             <li className='font-bold lg:text-base text-sm cursor-pointer text-[#416a32]'>
-                                <Link to='/Match'>Match</Link>
+                                <Link to='/About-Us'>Nosotros</Link>
                             </li>
                             <li className='font-bold lg:text-base text-sm cursor-pointer text-[#416a32]'>
-                                <Link to='/About Us'>Nosotros</Link>
-                            </li>
-                            <li className='font-bold lg:text-base text-sm cursor-pointer text-[#416a32]'>
-                                <Link to='/Sponsors'>Patrocinadores</Link>
+                                <Link to='/#Sponsors'>Patrocinadores</Link>
                             </li>
                             <li className='font-bold lg:text-base text-sm cursor-pointer text-[#416a32]'>
                                 <Link to='/Blog'>Blog</Link>

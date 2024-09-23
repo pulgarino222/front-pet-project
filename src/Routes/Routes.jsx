@@ -11,7 +11,7 @@ import ComingSoon from "../Pages/Comming Soon/CommingSoon";
 import PetsContext from "../Context/GlobalContext";
 import { useContext } from "react";
 import Loader from "../Components/Loading";
-import AboutPage from "../Components/aboutPage/AboutPage";
+import AboutPage from "../Components/aboutPage/aboutPage";
 import PetCRUD from "../Components/crudPet/cruPet";
 import AllPets from "../Components/crudPet/getAllPets";
 import FilterPetById from "../Components/crudPet/filterByIdPet";
@@ -19,6 +19,8 @@ import DeletePetById from "../Components/crudPet/deletePet";
 import DeleteUser from "../Components/usersCrud/deleteUserById";
 import UserList from "../Components/usersCrud/getAllUser";
 import UpdateUser from "../Components/usersCrud/updateUser";
+import PetCatalog from "../Components/catalogo/catalogue";
+import Catalogue from "../Pages/catalogue/catalogue";
 
 function AppRoutes() {
     const { loading } = useContext(PetsContext);
@@ -41,6 +43,7 @@ function AppRoutes() {
             <Route path='/Log-In' element={<LoginPage />} />
             {/* <Route path='/Account-Settings/:userId' element={<MyAccount />} /> */}
             <Route path='/user/delete' element={<DeleteUser />} />
+            <Route path='/Catalogue' element={< Catalogue/>} />
             <Route path='/getall' element={<UserList />} />
             <Route path='/update' element={<UpdateUser />} />
             {/* <Route path='/Account-Settings' element={<MyAccount />} /> */}
