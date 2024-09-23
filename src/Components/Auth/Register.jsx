@@ -28,6 +28,9 @@ function Register() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        // Rol predeterminado
+        const defaultRoleId = "f47ac10b-58cc-4372-a567-0e02b2c3d479";
+
         try {
             const response = await fetch("http://localhost:3001/auth/register", {
                 method: "POST",
@@ -41,7 +44,7 @@ function Register() {
                     phone: Number(formData.phone),
                     whatsapp: Number(formData.whatsapp),
                     adress: formData.adress, // Cambiado a "adress"
-                    roles: formData.roles,
+                    roles: [defaultRoleId, ...formData.roles], // Agregar rol predeterminado
                 }),
             });
 
@@ -51,7 +54,7 @@ function Register() {
                     text: "Usuario creado exitosamente",
                     icon: "success",
                 }).then(() => {
-                    navigate("/crudPet");
+                    navigate("/Log-In");
                 });
             } else {
                 const errorData = await response.json();

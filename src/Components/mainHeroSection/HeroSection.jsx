@@ -36,7 +36,7 @@ function HeroSection() {
                     <button
                         onClick={() => navigate("/Catalogue")}
                         className='bg-bgGreen text-white rounded-lg px-4 sm:px-6 py-2 hover:bg-[#89ac76] '>
-                        Ver Mascotas
+                        ¡Adopta un compañero!
                     </button>
                 </div>
             </section>

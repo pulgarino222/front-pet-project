@@ -32,23 +32,19 @@ function Login() {
                 },
                 body: JSON.stringify(formData),
             });
-    
-            console.log('Response Status:', response.status);
-            console.log('Response OK:', response.ok);
-    
+
             const data = await response.json();
-            console.log('Response Data:', data);
-    
+
             if (response.ok) {
-                if (data.access_token) { // Cambia de data.payload a data.access_token
+                if (data.access_token) {
                     localStorage.setItem("token", data.access_token);
                     Swal.fire({
                         title: "Bienvenido de vuelta",
                         text: "Inicio de sesión exitoso",
                         icon: "success",
                     });
-    
-                    setUserID(data.data.id); // Usa data.data.id
+
+                    setUserID(data.data.id);
                     navigate("/petcrud");
                 } else {
                     setError("Token no recibido");
@@ -131,6 +127,8 @@ function Login() {
 }
 
 export default Login;
+
+
 
 
 

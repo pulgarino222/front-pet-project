@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Asegúrate de que tienes react-router-dom 
-import { Link } from "react-router-dom";
+import { useNavigate } from 'react-router-dom'; // Asegúrate de que tienes react-router-dom
+import { Link } from "react-router-dom"; 
 
-const FilterPetById = () => {
+const DeletePetById = () => {
   const [petId, setPetId] = useState('');
-  const [pet, setPet] = useState(null);
   const [error, setError] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
   const [menuVisible, setMenuVisible] = useState(false);
   const navigate = useNavigate();
 
@@ -13,22 +13,23 @@ const FilterPetById = () => {
     setPetId(e.target.value);
   };
 
-
-
-  const fetchPetById = async () => {
+  const deletePetById = async () => {
     try {
-      const response = await fetch(`http://localhost:3001/pets/${petId}`);
+      const response = await fetch(`http://localhost:3001/pets/${petId}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
       if (response.ok) {
-        const data = await response.json();
-        setPet(data);
-        setError(''); // Clear any previous error
+        setSuccessMessage('Mascota eliminada exitosamente.');
+        setError('');
       } else {
-        setPet(null);
-        setError('No se encontró una mascota con ese ID.');
+        setError('No se pudo eliminar la mascota. Asegúrate de que el ID es correcto.');
+        setSuccessMessage('');
       }
     } catch (error) {
-      setPet(null);
-      setError('Error al obtener la mascota.');
+      setError('Error al eliminar la mascota.');
       console.error('Error de red:', error);
     }
   };
@@ -130,9 +131,9 @@ const FilterPetById = () => {
 
       <div className="max-w-lg mx-auto p-4">
         {/* Header estilizado */}
-        <div className="bg-gradient-to-r from-gray-500 to-gray-400 text-white rounded-lg shadow-lg p-4 mb-4">
-          <h2 className="text-3xl font-bold">Filtrar Mascota por ID</h2>
-          <p className="text-sm mt-1">Ingresa el ID de la mascota que deseas buscar</p>
+        <div className="bg-gradient-to-r from-red-500 to-red-700 text-white rounded-lg shadow-lg p-4 mb-4">
+          <h2 className="text-3xl font-bold">Eliminar Mascota por ID</h2>
+          <p className="text-sm mt-1">Ingresa el ID de la mascota que deseas eliminar</p>
         </div>
 
         {/* Entrada y Botón */}
@@ -145,43 +146,20 @@ const FilterPetById = () => {
             className="border rounded p-2 w-full"
           />
           <button
-            onClick={fetchPetById}
-            className="bg-gray-700 text-white px-4 py-2 rounded hover:bg-gray-500"
+            onClick={deletePetById}
+            className="bg-gray-700 text-white px-4 py-2 rounded hover:bg-red-600"
           >
-            Buscar
+            Eliminar
           </button>
         </div>
 
         {/* Mostrar error si existe */}
         {error && <div className="text-red-500 mb-4">{error}</div>}
-
-        {/* Mostrar información de la mascota si se encuentra */}
-        {pet && (
-          <div className="bg-white rounded-lg shadow-md overflow-hidden">
-            <img
-              src={pet.media.length > 0 ? pet.media[0].url : 'https://via.placeholder.com/150'}
-              alt={pet.name}
-              className="w-full h-48 object-cover"
-            />
-            <div className="p-4">
-              <h3 className="text-xl font-bold mb-2">{pet.name}</h3>
-              <p><strong>ID:</strong> {pet.id}</p>
-              <p><strong>Edad:</strong> {pet.age} años</p>
-              <p><strong>Sexo:</strong> {pet.sex}</p>
-              <p><strong>Peso:</strong> {pet.weight} kg</p>
-              <p><strong>Tamaño:</strong> {JSON.stringify(pet.size)}</p>
-              <p><strong>Tiempo en el refugio:</strong> {pet.time_at_the_shelter}</p>
-              <p><strong>Historial de salud:</strong> {pet.health_history}</p>
-              <p><strong>Salud:</strong> {JSON.stringify(pet.health)}</p>
-              <p><strong>Personalidad:</strong> {pet.personality || 'No disponible'}</p>
-              <p><strong>Raza:</strong> {pet.breed || 'No disponible'}</p>
-              <p><strong>Especie:</strong> {pet.specie || 'No disponible'}</p>
-            </div>
-          </div>
-        )}
+        {/* Mostrar mensaje de éxito si existe */}
+        {successMessage && <div className="text-green-500 mb-4">{successMessage}</div>}
       </div>
     </>
   );
 };
 
-export default FilterPetById;
+export default DeletePetById;
