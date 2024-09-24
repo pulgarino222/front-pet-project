@@ -86,7 +86,7 @@ const PetForm = () => {
     formDataToSend.append('user', userId);
 
     try {
-      const response = await fetch('http://localhost:3001/pets/create', {
+      const response = await fetch('https://back-pet-projectriwi-production.up.railway.app/pets/create', {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`,
