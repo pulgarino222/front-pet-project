@@ -32,7 +32,7 @@ function Register() {
         const defaultRoleId = "f47ac10b-58cc-4372-a567-0e02b2c3d479";
 
         try {
-            const response = await fetch("http://localhost:3001/auth/register", {
+            const response = await fetch("https://back-pet-projectriwi-production.up.railway.app/auth/register", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

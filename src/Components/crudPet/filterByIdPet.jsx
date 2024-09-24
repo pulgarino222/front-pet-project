@@ -44,7 +44,7 @@ const FilterPetById = () => {
   const fetchPetById = async () => {
     const token = localStorage.getItem('token'); // Obtener el token del almacenamiento local
     try {
-      const response = await fetch(`http://localhost:3001/pets/${petId}`, {
+      const response = await fetch(`https://back-pet-projectriwi-production.up.railway.app/pets/${petId}`, {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${token}`, // Agregar el token a la cabecera

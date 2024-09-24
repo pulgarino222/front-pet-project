@@ -75,7 +75,7 @@ const PetCatalog = () => {
   useEffect(() => {
     const fetchPets = async () => {
       try {
-        const response = await fetch('http://localhost:3001/pets');
+        const response = await fetch('https://back-pet-projectriwi-production.up.railway.app/pets');
         if (!response.ok) {
           throw new Error('Error fetching pets');
         }
