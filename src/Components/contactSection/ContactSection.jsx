@@ -1,16 +1,17 @@
-import React, { useEffect, useRef, useState } from "react";
-import AOS from "aos";
-import "aos/dist/aos.css";
-import { useNavigate } from "react-router-dom";
-import Swal from "sweetalert2";
-import ConfettiGenerator from "confetti-js";
-import emailjs from 'emailjs-com'; // Import EmailJS
+import React, { useEffect, useRef, useState } from "react"; // Importing React, useEffect, useRef, and useState hooks
+import AOS from "aos"; // Importing AOS library for animations
+import "aos/dist/aos.css"; // Importing AOS styles
+import { useNavigate } from "react-router-dom"; // Importing useNavigate hook for navigation
+import Swal from "sweetalert2"; // Importing SweetAlert2 for notifications
+import ConfettiGenerator from "confetti-js"; // Importing ConfettiGenerator for confetti effects
+import emailjs from 'emailjs-com'; // Importing EmailJS to send emails
 
+// Define the ContactSection component
 function ContactSection() {
-    const navigate = useNavigate();
-    const confettiRef = useRef(null);
+    const navigate = useNavigate(); // Initialize useNavigate for navigation
+    const confettiRef = useRef(null); // useRef to manage the confetti canvas element
 
-    // Estado para manejar los datos del formulario
+    // State to handle form data
     const [formData, setFormData] = useState({
         name: '',
         phone: '',
@@ -19,49 +20,53 @@ function ContactSection() {
         message: ''
     });
 
+    // Initialize AOS (Animate on Scroll) when the component mounts
     useEffect(() => {
         AOS.init({
-            duration: 1000,
-            once: true,
+            duration: 1000, // Animation duration set to 1000ms (1 second)
+            once: true, // Ensures animations run only once
         });
     }, []);
 
+    // Handler to update form data as user inputs values
     const handleChange = (e) => {
-        const { name, value } = e.target;
+        const { name, value } = e.target; // Destructure name and value from the input event
         setFormData((prevData) => ({
-            ...prevData,
-            [name]: value
+            ...prevData, // Copy previous state
+            [name]: value // Update the relevant field
         }));
     };
 
+    // Handler for form submission
     const handleSubmit = (e) => {
-        e.preventDefault();
+        e.preventDefault(); // Prevent default form submission
 
-        // Config the date EmailJS
-        const serviceID = 'service_axp0b0c';  // Reemplaza con tu Service ID
-        const templateID = 'template_e7fudra';  // Reemplaza con tu Template ID
-        const userID = 'V6VSfKI3GXsVgnh8A';  // Reemplaza con tu User ID
+        // EmailJS configuration details
+        const serviceID = 'service_axp0b0c';  // Replace with your Service ID
+        const templateID = 'template_e7fudra';  // Replace with your Template ID
+        const userID = 'V6VSfKI3GXsVgnh8A';  // Replace with your User ID
 
-        // Enviamos el correo a través de EmailJS
+        // Send email using EmailJS
         emailjs.send(serviceID, templateID, formData, userID)
             .then((response) => {
+                // Show success alert using SweetAlert2
                 Swal.fire({
                     title: "¡Muy bien!",
                     text: "Te responderemos a la brevedad",
                     icon: "success",
                 }).then(() => {
-                    // Iniciamos confetti
+                    // Start confetti animation after the success alert
                     const confettiSettings = { target: confettiRef.current };
                     const confetti = new ConfettiGenerator(confettiSettings);
                     confetti.render();
 
-                    // Detenemos el confetti después de 5 segundos
+                    // Stop confetti animation after 5 seconds
                     setTimeout(() => {
                         confetti.clear();
                     }, 5000);
                 });
 
-                // Limpiamos los datos del formulario
+                // Clear form data after successful submission
                 setFormData({
                     name: '',
                     phone: '',
@@ -71,7 +76,8 @@ function ContactSection() {
                 });
 
             }).catch((err) => {
-                console.error('Error al enviar el mensaje:', err);
+                console.error('Error al enviar el mensaje:', err); // Log error to the console
+                // Show error alert using SweetAlert2
                 Swal.fire({
                     title: "Error",
                     text: "No se pudo enviar el mensaje. Por favor, inténtalo de nuevo más tarde.",
@@ -83,8 +89,10 @@ function ContactSection() {
     return (
         <section className='w-full bg-bgPrincipal'>
             <div className='flex mx-auto max-w-screen-xl lg:flex-nowrap flex-wrap items-start justify-evenly p-4 sm:p-6'>
+                {/* Contact Form Section */}
                 <div className='lg:w-1/2 w-full p-4 sm:p-10' data-aos='fade-right'>
                     <form className='space-y-4' onSubmit={handleSubmit}>
+                        {/* Input for Name */}
                         <input
                             type='text'
                             name='name'
@@ -96,6 +104,7 @@ function ContactSection() {
                             onChange={handleChange}
                             required
                         />
+                        {/* Input for Phone */}
                         <input
                             type='tel'
                             name='phone'
@@ -107,6 +116,7 @@ function ContactSection() {
                             onChange={handleChange}
                             required
                         />
+                        {/* Input for Email */}
                         <input
                             type='email'
                             name='email'
@@ -118,6 +128,7 @@ function ContactSection() {
                             onChange={handleChange}
                             required
                         />
+                        {/* Input for Subject */}
                         <input
                             type='text'
                             name='subject'
@@ -129,6 +140,7 @@ function ContactSection() {
                             onChange={handleChange}
                             required
                         />
+                        {/* Textarea for Message */}
                         <textarea
                             name='message'
                             placeholder='Escribe tu mensaje...'
@@ -139,6 +151,7 @@ function ContactSection() {
                             onChange={handleChange}
                             required
                         ></textarea>
+                        {/* Submit Button */}
                         <button
                             type='submit'
                             className='w-full bg-bgGreen text-white py-4 px-4 rounded'
@@ -148,6 +161,8 @@ function ContactSection() {
                         </button>
                     </form>
                 </div>
+
+                {/* Contact Information Section */}
                 <div
                     className='lg:w-1/2 w-full p-4 sm:py-10 sm:px-4 mt-6 sm:mt-12 max-w-xl sm:max-w-2xl md:max-w-3xl flex flex-col items-center text-center space-y-6'
                     data-aos='fade-left'>
@@ -164,7 +179,7 @@ function ContactSection() {
                         Tambien puedes saber más en:
                     </p>
                     <button
-                        onClick={() => navigate("About-Us")}
+                        onClick={() => navigate("About-Us")} // Navigate to "About-Us" page
                         className='bg-bgGreen text-white py-4 px-6 rounded'
                         data-aos='flip-left'
                         data-aos-delay='200'>
@@ -172,6 +187,7 @@ function ContactSection() {
                     </button>
                 </div>
             </div>
+            {/* Confetti canvas element */}
             <canvas
                 ref={confettiRef}
                 style={{
@@ -188,4 +204,5 @@ function ContactSection() {
     );
 }
 
+// Export the ContactSection component
 export default ContactSection;

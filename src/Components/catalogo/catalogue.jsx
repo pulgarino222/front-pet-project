@@ -1,19 +1,24 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react'; // Import React, useEffect, and useState hooks
 
-// Componente del modal para mostrar detalles de la mascota
+// Modal component to display pet details
 const Modal = ({ pet, onClose }) => {
-  const [showInfo, setShowInfo] = useState(false);
-  const [showHealth, setShowHealth] = useState(false);
-  const [showPersonality, setShowPersonality] = useState(false);
+  const [showInfo, setShowInfo] = useState(false); // State to toggle "Información" section
+  const [showHealth, setShowHealth] = useState(false); // State to toggle "Salud" section
+  const [showPersonality, setShowPersonality] = useState(false); // State to toggle "Personalidad" section
 
   return (
     <div className='fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50'>
       <div className='bg-white p-5 rounded-lg'>
+        {/* Pet name and image */}
         <h2 className='text-lg font-bold'>{pet.name}</h2>
-        <img src={pet.media?.[0]?.url || 'https://via.placeholder.com/150'} alt={pet.name} className='w-full h-48 object-cover' />
+        <img 
+          src={pet.media?.[0]?.url || 'https://via.placeholder.com/150'} 
+          alt={pet.name} 
+          className='w-full h-48 object-cover' 
+        />
         
         <div className='mt-4'>
-          {/* Dropdown de Información */}
+          {/* Information Dropdown */}
           <button onClick={() => setShowInfo(!showInfo)} className='text-left w-full font-semibold text-md border-b py-2'>
             Información
           </button>
@@ -30,7 +35,7 @@ const Modal = ({ pet, onClose }) => {
             </div>
           )}
 
-          {/* Dropdown de Salud */}
+          {/* Health Information Dropdown */}
           <button onClick={() => setShowHealth(!showHealth)} className='text-left w-full font-semibold text-md border-b py-2 mt-2'>
             Salud
           </button>
@@ -45,7 +50,7 @@ const Modal = ({ pet, onClose }) => {
             </div>
           )}
 
-          {/* Dropdown de Personalidad */}
+          {/* Personality Dropdown */}
           <button onClick={() => setShowPersonality(!showPersonality)} className='text-left w-full font-semibold text-md border-b py-2 mt-2'>
             Personalidad
           </button>
@@ -56,22 +61,25 @@ const Modal = ({ pet, onClose }) => {
           )}
         </div>
         
+        {/* Close Button */}
         <button className='mt-4 bg-red-500 text-white p-2 rounded' onClick={onClose}>Cerrar</button>
       </div>
     </div>
   );
 };
 
+// Main PetCatalog component
 const PetCatalog = () => {
-  const [pets, setPets] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [selectedPet, setSelectedPet] = useState(null);
-  const [isOpen, setIsOpen] = useState(false);
-  const [filteredPets, setFilteredPets] = useState([]);
-  const [speciesFilter, setSpeciesFilter] = useState('');
-  const [sizeFilter, setSizeFilter] = useState('');
+  const [pets, setPets] = useState([]); // State for the list of pets
+  const [loading, setLoading] = useState(true); // Loading state
+  const [error, setError] = useState(null); // Error state
+  const [selectedPet, setSelectedPet] = useState(null); // State to store selected pet for the modal
+  const [isOpen, setIsOpen] = useState(false); // State to control the modal visibility
+  const [filteredPets, setFilteredPets] = useState([]); // State for filtered pets based on filters
+  const [speciesFilter, setSpeciesFilter] = useState(''); // State for species filter
+  const [sizeFilter, setSizeFilter] = useState(''); // State for size filter
 
+  // Fetch pets data from the API when component mounts
   useEffect(() => {
     const fetchPets = async () => {
       try {
@@ -81,7 +89,7 @@ const PetCatalog = () => {
         }
         const data = await response.json();
         setPets(data);
-        setFilteredPets(data); // Inicialmente, todos los datos son visibles
+        setFilteredPets(data); // Initially, all pets are visible
       } catch (error) {
         setError(error.message);
       } finally {
@@ -92,6 +100,7 @@ const PetCatalog = () => {
     fetchPets();
   }, []);
 
+  // Function to handle filtering pets based on selected filters
   const handleFilterChange = () => {
     setFilteredPets(
       pets.filter(pet => 
@@ -101,18 +110,22 @@ const PetCatalog = () => {
     );
   };
 
+  // Update the filtered pets whenever filters or pets list changes
   useEffect(() => {
     handleFilterChange();
   }, [speciesFilter, sizeFilter, pets]);
 
+  // Display loading or error messages
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
 
+  // Function to show pet details in a modal
   const handleShowDetails = (pet) => {
     setSelectedPet(pet);
     setIsOpen(true);
   };
 
+  // Function to close the modal
   const handleCloseModal = () => {
     setSelectedPet(null);
     setIsOpen(false);
@@ -120,6 +133,7 @@ const PetCatalog = () => {
 
   return (
     <section className='flex justify-between items-start bg-white w-[90%] rounded-lg shadow-md m-auto my-10 p-10 max-w-screen-xl relative'>
+      {/* Sidebar with filters */}
       <aside className='w-1/4'>
         <h3 className='font-semibold text-lg mb-4'>Filtrar por</h3>
         
@@ -152,6 +166,7 @@ const PetCatalog = () => {
         </div>
       </aside>
 
+      {/* Main catalog content */}
       <div className='lg:w-2/3'>
         <div className='mx-auto max-w-2xl px-4 py-6 sm:px-6 lg:max-w-7xl lg:px-8'>
           <div className='flex justify-between mb-5'>
@@ -187,16 +202,11 @@ const PetCatalog = () => {
           </div>
         </div>
       </div>
+      
+      {/* Display modal if isOpen is true */}
       {isOpen && selectedPet && <Modal pet={selectedPet} onClose={handleCloseModal} />}
     </section>
   );
 };
 
 export default PetCatalog;
-
-
-
-
-
-
-
