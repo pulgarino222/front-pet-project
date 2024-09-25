@@ -17,7 +17,7 @@ const DeletePetById = () => {
   // Function to delete pet by ID
   const deletePetById = async () => {
     try {
-      const response = await fetch(`https://back-pet-projectriwi-production.up.railway.app/pets/${petId}`, {
+      const response = await fetch(`http://localhost:3001/pets/${petId}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`, // Use token from local storage for authorization

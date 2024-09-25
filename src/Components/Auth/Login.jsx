@@ -29,7 +29,7 @@ function Login() {
         e.preventDefault(); // Prevent default form submission behavior
         try {
             // Make a POST request to login API endpoint
-            const response = await fetch("https://back-pet-projectriwi-production.up.railway.app/auth/login", {
+            const response = await fetch("http://localhost:3001/auth/login", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json", // Set content type to JSON
