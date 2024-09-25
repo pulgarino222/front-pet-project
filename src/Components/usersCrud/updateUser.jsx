@@ -55,7 +55,7 @@ const UpdateUser = () => {
     }
 
     try {
-      const response = await fetch(`https://back-pet-projectriwi-production.up.railway.app/users/${userId}`, {
+      const response = await fetch(`http://localhost:3001/users/${userId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

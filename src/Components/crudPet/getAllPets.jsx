@@ -104,7 +104,7 @@ const AllPets = () => {
   useEffect(() => {
     const fetchPets = async () => {
       try {
-        const response = await fetch('https://back-pet-projectriwi-production.up.railway.app/pets');
+        const response = await fetch('http://localhost:3001/pets');
         if (response.ok) {
           const data = await response.json();
           setPets(data); // Set the state with the fetched pet data

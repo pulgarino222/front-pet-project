@@ -37,7 +37,7 @@ function Register() {
 
         try {
             // Sending a POST request to register the user
-            const response = await fetch("https://back-pet-projectriwi-production.up.railway.app/auth/register", {
+            const response = await fetch("http://localhost:3001/auth/register", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json", // Setting the request content type as JSON
