@@ -85,7 +85,7 @@ It is aimed at individuals and families who wish to adopt pets, providing them w
 
 You can find the complete documentation of the endpoints through Swagger at the following link:
 
-[Documentación Swagger](http://localhost:3001/api)
+[Documentación Swagger](https://back-pet-projectriwi-production.up.railway.app/api)
 
 
 
@@ -207,8 +207,8 @@ Using MVC is important as it allows for a clear separation of responsibilities a
    - Comply with web accessibility guidelines (WCAG).
 
 ## Links
-- **[Project Prototype: Figma](http://localhost:3001/api)
-- **API Endpoint Documentation**: [Swagger](http://localhost:3001/api)
+- **[Project Prototype: Figma](https://back-pet-projectriwi-production.up.railway.app/api)
+- **API Endpoint Documentation**: [Swagger](https://back-pet-projectriwi-production.up.railway.app/api)
 - **Project Management Board - Frontend**: [PAM Front](https://acanorave.atlassian.net/jira/software/projects/PAM/boards/3)
 
 ## Completed Work Report - Frontend

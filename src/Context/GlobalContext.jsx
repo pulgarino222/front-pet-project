@@ -1,44 +1,40 @@
 import { createContext, useEffect, useState } from "react";
-// import { getPokemonData, getPokemons } from "../Helpers/PokeApi"; // Uncomment if needed for Pokémon data
-import { getPets } from "../Helpers/API"; // Import function to fetch pet data
+// import { getPokemonData, getPokemons } from "../Helpers/PokeApi";
+import { getPets } from "../Helpers/API";
 
-// Create a context for pets
 const PetsContext = createContext();
 
-// Create a provider component for pets context
 const PetsProvider = ({ children }) => {
-    const [loading, setLoading] = useState(false); // State to manage loading status
-    const [error, setError] = useState(false); // State to manage error status
-    const [allPets, setAllPets] = useState([]); // State to hold all pets data
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(false);
+    const [allPets, setAllPets] = useState([]);
 
-    const [likepets, setLikepets] = useState([]); // State to manage liked pets
-    const [dislikepets, setDislikepets] = useState([]); // State to manage disliked pets
+    const [likepets, setLikepets] = useState([]);
+    const [dislikepets, setDislikepets] = useState([]);
 
-    const [showDetails, setShowDetails] = useState(false); // State to control pet detail visibility
-    const [userID, setUserID] = useState(null); // State to store user ID
-    const [userInfo, setUserInfo] = useState(null); // State to store user information
+    const [showDetails, setShowDetails] = useState(false);
+    const [userID, setUserID] = useState(null);
+    const [userInfo, setUserInfo] = useState(null);
 
-    // Function to fetch all pets from the API
     const getAllPets = async () => {
-        setLoading(true); // Set loading to true before fetching
+        setLoading(true);
 
         try {
-            const data = await getPets(); // Fetch pet data
+            const data = await getPets();
 
-            setAllPets(data); // Store fetched data in state
-            setLoading(false); // Set loading to false after fetching
+            setAllPets(data);
+
+            setLoading(false);
         } catch (error) {
-            setLoading(false); // Set loading to false in case of error
-            setError(true); // Set error state to true
+            setLoading(false);
+            setError(true);
         }
     };
 
-    // useEffect hook to fetch pets when the component mounts
     useEffect(() => {
         getAllPets();
     }, []);
 
-    // Prepare data to be provided through context
     const data = {
         loading,
         setLoading,
@@ -57,10 +53,8 @@ const PetsProvider = ({ children }) => {
         setUserInfo,
     };
 
-    // Return the provider with the context data
     return <PetsContext.Provider value={data}>{children}</PetsContext.Provider>;
 };
 
-// Export the provider and context for use in other components
 export { PetsProvider };
 export default PetsContext;

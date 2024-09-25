@@ -1,16 +1,15 @@
-import Login from "../../Components/Auth/Login"; // Import the Login component
-import Footer from "../../Components/Footer/Footer"; // Import the Footer component
-import Header from "../../Components/Header/Header"; // Import the Header component
+import Login from "../../Components/Auth/Login";
+import Footer from "../../Components/Footer/Footer";
+import Header from "../../Components/Header/Header";
 
-// Functional component for the Login page
 function LoginPage() {
     return (
         <>
-            <Header /> {/* Render the Header component */}
-            <Login /> {/* Render the Login component */}
-            <Footer /> {/* Render the Footer component */}
+            <Header />
+            <Login />
+            <Footer />
         </>
     );
 }
 
-export default LoginPage; // Export the LoginPage component
+export default LoginPage;

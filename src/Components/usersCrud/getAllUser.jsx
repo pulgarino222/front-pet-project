@@ -45,7 +45,7 @@ const GetAllUser = () => {
     }
 
     try {
-      const response = await fetch('http://localhost:3001/users', {
+      const response = await fetch('https://back-pet-projectriwi-production.up.railway.app/users', {
         headers: {
           Authorization: `Bearer ${token}`,
         },

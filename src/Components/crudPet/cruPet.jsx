@@ -1,159 +1,325 @@
-import React, { useState } from 'react'; // Importing React and useState for managing state
-import { useNavigate, Link } from 'react-router-dom'; // Importing useNavigate and Link for navigation
-import jwtDecode from 'jwt-decode'; // Importing jwtDecode for decoding JWT tokens
+import React, { useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
+import jwtDecode from 'jwt-decode';
 
 const PetForm = () => {
-  const navigate = useNavigate(); // Initializing useNavigate for redirecting
+  const navigate = useNavigate();
 
-  // Function to get user ID from the stored JWT token
   const getUserIdFromToken = () => {
-    const token = localStorage.getItem('token'); // Retrieving the token from local storage
+    const token = localStorage.getItem('token');
     if (token) {
-      const decoded = jwtDecode(token); // Decoding the token
-      return decoded.id; // Returning the user ID
+      const decoded = jwtDecode(token);
+      return decoded.id;
     }
-    return ''; // Returning an empty string if no token exists
+    return '';
   };
 
-  // Initial state for the form
   const [formData, setFormData] = useState({
-    name: '', // Pet's name
-    age: '', // Pet's age
-    sex: 'macho', // Default value for sex (male)
-    size: { current: 'pequeño', estimated: 'desconocido' }, // Initial size values (current and estimated)
-    weight: '', // Pet's weight
-    time_at_the_shelter: '', // Time spent at the shelter
-    health_history: '', // Health history of the pet
+    name: '',
+    age: '',
+    sex: 'macho',
+    size: { current: 'pequeño', estimated: 'desconocido' },
+    weight: '',
+    time_at_the_shelter: '',
+    health_history: '',
     health: {
-      previous_treatments: '', // Previous treatments the pet received
-      dewormed: 'no', // Dewormed status
-      medical_necessity: '', // Any medical necessities
-      sterilization: 'no', // Sterilization status
-      vaccines: '', // Vaccination details
+      previous_treatments: '',
+      dewormed: 'no',
+      medical_necessity: '',
+      sterilization: 'no',
+      vaccines: '',
     },
-    personality: '', // Pet's personality traits
-    breed: '', // Pet's breed
-    specie: '', // Pet's species
-    image: null, // To store the selected image
+    personality: '',
+    breed: '',
+    specie: '',
+    image: null,
   });
 
-  const [modalVisible, setModalVisible] = useState(false); // State to control the visibility of the modal
-  const [menuVisible, setMenuVisible] = useState(false); // State to control the visibility of the menu
+  const [modalVisible, setModalVisible] = useState(false);
+  const [menuVisible, setMenuVisible] = useState(false);
 
-  // Function to handle changes in form fields
   const handleChange = (e) => {
-    const { name, value } = e.target; // Destructuring name and value from the event
+    const { name, value } = e.target;
     if (name === 'specie') {
-      // If the field is 'specie', assign a specific ID
       const selectedId = value === 'perro' ? '574b20aa-7932-11ef-84d4-cecd028ee826' : '574b20aa-7932-11ef-84d4-cecd028ee826';
-      setFormData((prev) => ({ ...prev, specie: selectedId })); // Updating the state with selected specie ID
+      setFormData((prev) => ({ ...prev, specie: selectedId }));
+    } else if (name.startsWith('size.')) {
+      const field = name.split('.')[1];
+      setFormData((prev) => ({
+        ...prev,
+        size: { ...prev.size, [field]: value },
+      }));
+    } else if (name.startsWith('health.')) {
+      const field = name.split('.')[1];
+      setFormData((prev) => ({
+        ...prev,
+        health: { ...prev.health, [field]: value },
+      }));
     } else {
-      // Updating other fields in the form data
-      setFormData((prev) => ({ ...prev, [name]: value })); // General state update for other fields
+      setFormData((prev) => ({ ...prev, [name]: value }));
     }
   };
 
-  // Function to handle image selection
-  const handleImageChange = (e) => {
-    const file = e.target.files[0]; // Getting the selected file
-    setFormData((prev) => ({ ...prev, image: file })); // Updating the state with the selected image
+  const handleFileChange = (e) => {
+    setFormData((prev) => ({ ...prev, image: e.target.files[0] }));
   };
 
-  // Function to submit the form
   const handleSubmit = async (e) => {
-    e.preventDefault(); // Preventing the default form submission behavior
-    const userId = getUserIdFromToken(); // Getting the user ID from the token
+    e.preventDefault();
+    const userId = getUserIdFromToken();
+    const formDataToSend = new FormData();
 
-    // Preparing form data for submission
-    const submitData = new FormData();
-    submitData.append('name', formData.name);
-    submitData.append('age', formData.age);
-    submitData.append('sex', formData.sex);
-    submitData.append('current_size', formData.size.current);
-    submitData.append('estimated_size', formData.size.estimated);
-    submitData.append('weight', formData.weight);
-    submitData.append('time_at_the_shelter', formData.time_at_the_shelter);
-    submitData.append('health_history', formData.health_history);
-    submitData.append('previous_treatments', formData.health.previous_treatments);
-    submitData.append('dewormed', formData.health.dewormed);
-    submitData.append('medical_necessity', formData.health.medical_necessity);
-    submitData.append('sterilization', formData.health.sterilization);
-    submitData.append('vaccines', formData.health.vaccines);
-    submitData.append('personality', formData.personality);
-    submitData.append('breed', formData.breed);
-    submitData.append('specie', formData.specie);
-    submitData.append('image', formData.image); // Adding the image to the form data
+    for (const key in formData) {
+      if (key === 'health') {
+        for (const healthKey in formData.health) {
+          formDataToSend.append(`health[${healthKey}]`, formData.health[healthKey]);
+        }
+      } else if (key === 'size') {
+        for (const sizeKey in formData.size) {
+          formDataToSend.append(`size[${sizeKey}]`, formData.size[sizeKey]);
+        }
+      } else {
+        formDataToSend.append(key, formData[key]);
+      }
+    }
+
+    formDataToSend.append('user', userId);
 
     try {
-      const response = await fetch(`http://localhost:3000/pets/user/${userId}`, {
+      const response = await fetch('https://back-pet-projectriwi-production.up.railway.app/pets/create', {
         method: 'POST',
-        body: submitData, // Sending the form data
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        },
+        body: formDataToSend,
       });
       if (response.ok) {
-        // If the response is successful, redirect to another page
-        navigate('/pet-list'); // Redirecting to the pet list page
+        const data = await response.json();
+        setModalVisible(true);
       } else {
-        // Handle errors if the submission fails
-        console.error('Failed to submit form:', response.statusText);
+        console.error('Error en la creación de la mascota');
       }
     } catch (error) {
-      // Catching any errors during the fetch request
-      console.error('Error submitting form:', error);
+      console.error('Error de red:', error);
     }
   };
 
-  // Function to toggle modal visibility
-  const toggleModal = () => {
-    setModalVisible(!modalVisible); // Toggling the modal's visibility state
+  const closeModal = () => {
+    setModalVisible(false);
+    setFormData({
+      name: '',
+      age: '',
+      sex: 'macho',
+      size: { current: 'pequeño', estimated: 'desconocido' },
+      weight: '',
+      time_at_the_shelter: '',
+      health_history: '',
+      health: {
+        previous_treatments: '',
+        dewormed: 'no',
+        medical_necessity: '',
+        sterilization: 'no',
+        vaccines: '',
+      },
+      personality: '',
+      breed: '',
+      specie: '',
+      image: null,
+    });
   };
 
-  // Function to toggle menu visibility
   const toggleMenu = () => {
-    setMenuVisible(!menuVisible); // Toggling the menu's visibility state
+    setMenuVisible((prev) => !prev);
+  };
+
+  const navigateToCreate = () => {
+    navigate('/petcrud');
+    setMenuVisible(false);
+  };
+
+  const navigateToGetAll = () => {
+    navigate('/petcrud/allPets');
+    setMenuVisible(false);
+  };
+
+  const handleOptionClick = () => {
+    setMenuVisible(false);
+  };
+
+  const navigateToFilterById = () => {
+    navigate('/petcrud/allPets/byid');
+    setMenuVisible(false);
+  };
+
+  const navigateToDelete = () => {
+    navigate('/petcrud/delete');
+    setMenuVisible(false);
   };
 
   return (
-    <div>
-      {/* Form for adding a new pet */}
-      <h1>Add a New Pet</h1>
-      <form onSubmit={handleSubmit}> {/* Handling form submission */}
-        <input type="text" name="name" placeholder="Pet Name" onChange={handleChange} required /> {/* Input for pet name */}
-        <input type="number" name="age" placeholder="Age" onChange={handleChange} required /> {/* Input for age */}
-        <select name="sex" onChange={handleChange}> {/* Dropdown for selecting sex */}
-          <option value="macho">Male</option> {/* Male option */}
-          <option value="hembra">Female</option> {/* Female option */}
-        </select>
-        <input type="text" name="current_size" placeholder="Current Size" onChange={handleChange} required /> {/* Input for current size */}
-        <input type="text" name="estimated_size" placeholder="Estimated Size" onChange={handleChange} required /> {/* Input for estimated size */}
-        <input type="number" name="weight" placeholder="Weight" onChange={handleChange} required /> {/* Input for weight */}
-        <input type="number" name="time_at_the_shelter" placeholder="Time at Shelter (days)" onChange={handleChange} required /> {/* Input for time at shelter */}
-        <textarea name="health_history" placeholder="Health History" onChange={handleChange} /> {/* Textarea for health history */}
-        <input type="text" name="previous_treatments" placeholder="Previous Treatments" onChange={handleChange} /> {/* Input for previous treatments */}
-        <select name="dewormed" onChange={handleChange}> {/* Dropdown for dewormed status */}
-          <option value="no">No</option>
-          <option value="yes">Yes</option>
-        </select>
-        <input type="text" name="medical_necessity" placeholder="Medical Necessity" onChange={handleChange} /> {/* Input for medical necessity */}
-        <select name="sterilization" onChange={handleChange}> {/* Dropdown for sterilization status */}
-          <option value="no">No</option>
-          <option value="yes">Yes</option>
-        </select>
-        <input type="text" name="vaccines" placeholder="Vaccines" onChange={handleChange} /> {/* Input for vaccines */}
-        <textarea name="personality" placeholder="Personality Traits" onChange={handleChange} /> {/* Textarea for personality */}
-        <input type="text" name="breed" placeholder="Breed" onChange={handleChange} required /> {/* Input for breed */}
-        <select name="specie" onChange={handleChange}> {/* Dropdown for species */}
-          <option value="perro">Dog</option> {/* Dog option */}
-          <option value="gato">Cat</option> {/* Cat option */}
-        </select>
-        <input type="file" name="image" onChange={handleImageChange} /> {/* File input for selecting an image */}
-        <button type="submit">Submit</button> {/* Submit button */}
+    <>
+      <header className="bg-gray-600 text-white p-4 flex justify-between items-center">
+        <h1 className="text-lg font-bold">Dashboard de Mascotas</h1>
+        <li className="list-none ml-auto mr-4">
+          <Link to="/" className="text-lg font-bold no-underline" aria-current="page">
+            Inicio
+          </Link>
+        </li>
+        <button onClick={toggleMenu} className="focus:outline-none">
+          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16m-7 6h7" />
+          </svg>
+        </button>
+      </header>
+
+      {menuVisible && (
+        <nav className="bg-gray-400 text-white p-4">
+          <ul>
+            <li className="mb-2">
+              <button className="btn-custom w-full text-left" onClick={() => { navigateToCreate(); handleOptionClick(); }}>
+                Crear Mascota
+              </button>
+            </li>
+            <li className="mb-2">
+              <button className="btn-custom w-full text-left" onClick={() => { navigateToGetAll(); handleOptionClick(); }}>
+                Obtener Todas las Mascotas
+              </button>
+            </li>
+            <li className="mb-2">
+              <button className="btn-custom w-full text-left" onClick={() => { navigateToFilterById(); handleOptionClick(); }}>
+                Filtrar por ID
+              </button>
+            </li>
+            <li className="mb-2">
+              <button className="btn-custom w-full text-left" onClick={() => { navigateToDelete(); handleOptionClick(); }}>
+                Eliminar Mascota
+              </button>
+            </li>
+          </ul>
+        </nav>
+      )}
+
+      <form onSubmit={handleSubmit} className="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-lg grid grid-cols-1 md:grid-cols-2 gap-6">
+        <h2 className="text-2xl font-bold mb-4 md:col-span-2 text-center">Registro mascota</h2>
+
+        <div className="mb-4">
+          <label className="block mb-1 font-semibold">Nombre</label>
+          <input type="text" name="name" value={formData.name} onChange={handleChange} className="border border-gray-300 p-2 rounded w-full" />
+        </div>
+
+        <div className="mb-4">
+          <label className="block mb-1 font-semibold">Edad</label>
+          <input type="number" name="age" value={formData.age} onChange={handleChange} className="border border-gray-300 p-2 rounded w-full" required />
+        </div>
+
+        <div className="mb-4">
+          <label className="block mb-1 font-semibold">Sexo</label>
+          <select name="sex" value={formData.sex} onChange={handleChange} className="border border-gray-300 p-2 rounded w-full">
+            <option value="macho">Macho</option>
+            <option value="hembra">Hembra</option>
+          </select>
+        </div>
+
+        <div className="mb-4">
+          <label className="block mb-1 font-semibold">Tamaño actual</label>
+          <select name="size.current" value={formData.size.current} onChange={handleChange} className="border border-gray-300 p-2 rounded w-full" required>
+            <option value="pequeño">Pequeño</option>
+            <option value="mediano">Mediano</option>
+            <option value="grande">Grande</option>
+          </select>
+        </div>
+
+        <div className="mb-4">
+          <label className="block mb-1 font-semibold">Tamaño estimado</label>
+          <select name="size.estimated" value={formData.size.estimated} onChange={handleChange} className="border border-gray-300 p-2 rounded w-full" required>
+            <option value="pequeño">Pequeño</option>
+            <option value="mediano">Mediano</option>
+            <option value="grande">Grande</option>
+            <option value="desconocido">Desconocido</option>
+          </select>
+        </div>
+
+        <div className="mb-4">
+          <label className="block mb-1 font-semibold">Peso</label>
+          <input type="number" name="weight" value={formData.weight} onChange={handleChange} className="border border-gray-300 p-2 rounded w-full" />
+        </div>
+
+        <div className="mb-4">
+          <label className="block mb-1 font-semibold">Tiempo en el refugio</label>
+          <input type="text" name="time_at_the_shelter" value={formData.time_at_the_shelter} onChange={handleChange} className="border border-gray-300 p-2 rounded w-full" />
+        </div>
+
+        <div className="mb-4">
+          <label className="block mb-1 font-semibold">Historial de salud</label>
+          <textarea name="health_history" value={formData.health_history} onChange={handleChange} className="border border-gray-300 p-2 rounded w-full" />
+        </div>
+
+        <div className="mb-4">
+          <h3 className="font-bold">Salud</h3>
+          <label className="block mb-1 font-semibold">Tratamientos previos</label>
+          <input type="text" name="health.previous_treatments" value={formData.health.previous_treatments} onChange={handleChange} className="border border-gray-300 p-2 rounded w-full" />
+
+          <label className="block mb-1 font-semibold">Desparacitado</label>
+          <select name="health.dewormed" value={formData.health.dewormed} onChange={handleChange} className="border border-gray-300 p-2 rounded w-full">
+            <option value="sí">Sí</option>
+            <option value="no">No</option>
+          </select>
+
+          <label className="block mb-1 font-semibold">Necesidad médica</label>
+          <input type="text" name="health.medical_necessity" value={formData.health.medical_necessity} onChange={handleChange} className="border border-gray-300 p-2 rounded w-full" />
+
+          <label className="block mb-1 font-semibold">Esterilización</label>
+          <select name="health.sterilization" value={formData.health.sterilization} onChange={handleChange} className="border border-gray-300 p-2 rounded w-full">
+            <option value="sí">Sí</option>
+            <option value="no">No</option>
+          </select>
+
+          <label className="block mb-1 font-semibold">Vacunas</label>
+          <input type="text" name="health.vaccines" value={formData.health.vaccines} onChange={handleChange} className="border border-gray-300 p-2 rounded w-full" />
+        </div>
+
+        <div className="mb-4">
+          <label className="block mb-1 font-semibold">Personalidad</label>
+          <input type="text" name="personality" value={formData.personality} onChange={handleChange} className="border border-gray-300 p-2 rounded w-full" />
+        </div>
+
+        <div className="mb-4">
+          <label className="block mb-1 font-semibold">Raza</label>
+          <input type="text" name="breed" value={formData.breed} onChange={handleChange} className="border border-gray-300 p-2 rounded w-full" />
+        </div>
+
+        <div className="mb-4">
+          <label className="block mb-1 font-semibold">Especie</label>
+          <select name="specie" onChange={handleChange} className="border border-gray-300 p-2 rounded w-full" required>
+            <option value="">Selecciona una especie</option>
+            <option value="perro">Perro</option>
+            <option value="gato">Gato</option>
+          </select>
+        </div>
+
+        <div className="mb-4">
+          <label className="block mb-1 font-semibold">Imagen</label>
+          <input type="file" name="image" onChange={handleFileChange} className="border border-gray-300 p-2 rounded w-full" />
+        </div>
+
+        <div className="md:col-span-2">
+          <button type="submit" className="bg-blue-600 text-white p-2 rounded-lg hover:bg-blue-700 transition duration-200">Registrar Mascota</button>
+        </div>
       </form>
-      <button onClick={toggleModal}>Toggle Modal</button> {/* Button to toggle modal */}
-      <button onClick={toggleMenu}>Toggle Menu</button> {/* Button to toggle menu */}
-      {modalVisible && <div>Modal Content Here</div>} {/* Conditional rendering of the modal */}
-      {menuVisible && <div>Menu Content Here</div>} {/* Conditional rendering of the menu */}
-    </div>
+
+      {modalVisible && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white p-6 rounded-lg shadow-md">
+            <h2 className="text-lg font-bold">Mascota registrada exitosamente!</h2>
+            <button onClick={closeModal} className="mt-4 bg-blue-600 text-white p-2 rounded-lg hover:bg-blue-700 transition duration-200">Cerrar</button>
+          </div>
+        </div>
+      )}
+    </>
   );
 };
 
-export default PetForm; // Exporting the PetForm component
+export default PetForm;
+
+
+

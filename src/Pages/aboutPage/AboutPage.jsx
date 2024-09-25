@@ -1,12 +1,11 @@
-import AboutPage from "../../Components/aboutPage/aboutPage"; // Import the AboutPage component
+import AboutPage from "../../Components/aboutPage/AboutPage"
 
-// Functional component for the About page
-function About() {
-    return (
-        <div>
-            <AboutPage /> {/* Render the AboutPage component */}
-        </div>
-    );
+function About(){
+    return(
+         <div>
+            <AboutPage/>
+         </div>
+    )
 }
+export default About;
 
-export default About; // Export the About component
